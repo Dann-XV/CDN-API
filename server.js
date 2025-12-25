@@ -4,6 +4,8 @@ require('dotenv').config();
 const morgan = require('morgan');
 const port = process.env.PORT || 3000;
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 
 // Middleware
@@ -49,6 +51,16 @@ app.post(`/upload`, uploadOptions.single('video'), (req, res) => {
 
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Video Upload API' });
+})
+
+app.get('/video', (req, res) => {
+    const path = 'uploads/videos/';
+    fs.readdir(path, (err, files) => {
+        if (err) {
+            return res.status(500).send('Unable to scan files!');
+        }
+        res.json({ videos: files });
+    });
 })
 
 app.listen(port, () => {
