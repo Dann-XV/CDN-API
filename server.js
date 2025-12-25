@@ -49,7 +49,7 @@ app.post(`/upload`, uploadOptions.single('video'), (req, res) => {
 
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Video Upload API' });
-}
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
